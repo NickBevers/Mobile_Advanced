@@ -9,6 +9,11 @@
     tools:context=".FragmentB">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Temperature (°F)"/>
+
     <EditText
         android:id="@+id/et_fahrenheit"
         android:layout_width="match_parent"
