@@ -10,12 +10,13 @@
 
     <!-- TODO: Update blank fragment layout -->
     <EditText
-        android:id="@+id/et_celsius"
+        android:id="@+id/et_kelvin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"/>
 
     <Button
-        android:id="@+id/button_to_fahrenheit"
+        android:id="@+id/button_to_kelvin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
