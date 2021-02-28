@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="16dp"
-    tools:context=".FragmentA">
+    tools:context=".FragmentC">
 
     <!-- TODO: Update blank fragment layout -->
     <EditText
