@@ -2,6 +2,9 @@ package com.example.conversionapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,39 @@ public class FragmentC extends Fragment {
         // Required empty public constructor
     }
 
+    private final TextWatcher watcherKelvin = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String input = et_kelvin.getText().toString();
+            //Stuur naar fragment B
+            if (et_kelvin.hasFocus()){
+                if (et_kelvin.length() >= 0 && !TextUtils.isEmpty(et_kelvin.getText().toString())){
+                    try {
+                        listener.onInputCSend(input);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    listener.onInputCSend("0");
+                }
+            }
+            else{
+                return;
+            }
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,13 +66,7 @@ public class FragmentC extends Fragment {
         View v = inflater.inflate(R.layout.fragment_c, container, false);
 
         et_kelvin = v.findViewById(R.id.et_kelvin);
-
-        v.findViewById(R.id.button_to_kelvin).setOnClickListener(bv -> {
-            String input = et_kelvin.getText().toString();
-
-            //Stuur naar fragment C
-            listener.onInputCSend(input);
-        });
+        et_kelvin.addTextChangedListener(watcherKelvin);
 
 
         return v;

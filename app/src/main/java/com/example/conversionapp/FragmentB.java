@@ -2,6 +2,9 @@ package com.example.conversionapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,39 @@ public class FragmentB extends Fragment {
         // Required empty public constructor
     }
 
+    private final TextWatcher watcherFahrenheit = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String input = et_fahrenheit.getText().toString();
+            //Stuur naar fragment B
+            if (et_fahrenheit.hasFocus()){
+                if (et_fahrenheit.length() >= 0 && !TextUtils.isEmpty(et_fahrenheit.getText().toString())){
+                    try {
+                        listener.onInputBSend(input);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    listener.onInputBSend("0");
+                }
+            }
+            else{
+                return;
+            }
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,13 +66,7 @@ public class FragmentB extends Fragment {
         View v = inflater.inflate(R.layout.fragment_b, container, false);
 
         et_fahrenheit = v.findViewById(R.id.et_fahrenheit);
-
-        v.findViewById(R.id.button_to_celsius).setOnClickListener(bv -> {
-            String input = et_fahrenheit.getText().toString();
-
-            //Stuur naar fragment A
-            listener.onInputBSend(input);
-        });
+        et_fahrenheit.addTextChangedListener(watcherFahrenheit);
 
 
         return v;

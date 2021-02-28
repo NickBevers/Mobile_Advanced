@@ -6,16 +6,23 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class FragmentA extends Fragment {
+
+    private Object TextWatcher;
 
     public interface FragmentAListener{
         void onInputASend(String input);
     }
+
 
     private EditText et_celsius;
     private FragmentAListener listener;
@@ -23,6 +30,35 @@ public class FragmentA extends Fragment {
     public FragmentA() {
         // Required empty public constructor
     }
+
+    private final TextWatcher watcherCelsius = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String input = et_celsius.getText().toString();
+            //Stuur naar fragment B
+            if (et_celsius.hasFocus()) {
+                if (et_celsius.length() >= 0 && !TextUtils.isEmpty(et_celsius.getText().toString())) {
+                    try {
+                        listener.onInputASend(input);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    listener.onInputASend("0");
+                }
+            }
+        }
+    };
 
 
     @Override
@@ -32,14 +68,7 @@ public class FragmentA extends Fragment {
         View v = inflater.inflate(R.layout.fragment_a, container, false);
 
         et_celsius = v.findViewById(R.id.et_celsius);
-
-        v.findViewById(R.id.button_to_fahrenheit).setOnClickListener(bv -> {
-            String input = et_celsius.getText().toString();
-
-            //Stuur naar fragment B
-            listener.onInputASend(input);
-        });
-
+        et_celsius.addTextChangedListener(watcherCelsius);
 
         return v;
     }
