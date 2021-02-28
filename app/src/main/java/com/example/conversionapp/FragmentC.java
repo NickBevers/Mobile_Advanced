@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 public class FragmentC extends Fragment {
 
-    public interface FragmentBListener{
-        void onInputBSend(String input);
+    public interface FragmentCListener {
+        void onInputCSend(String input);
     }
 
     private EditText et_kelvin;
-    private FragmentBListener listener;
+    private FragmentCListener listener;
 
     public FragmentC() {
         // Required empty public constructor
@@ -35,25 +35,26 @@ public class FragmentC extends Fragment {
             String input = et_kelvin.getText().toString();
 
             //Stuur naar fragment C
-            listener.onInputBSend(input);
+            listener.onInputCSend(input);
         });
 
 
         return v;
     }
 
-    //ontvangt data van buitenaf (bvb in fragment b wordt op knop gedrukt)
-    public void updateFahrenheit(String input){
-        et_kelvin.setText(input);
+    //ontvangt data van buitenaf (bvb in fragment b wordt op knop ingedrukt)
+    public void updateKelvin(Double input){
+        String newInput = input.toString();
+        et_kelvin.setText(newInput);
     }
 
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context) throws RuntimeException {
         super.onAttach(context);
-        if (context instanceof FragmentBListener){
-            listener = (FragmentBListener)context;
+        if (context instanceof FragmentCListener){
+            listener = (FragmentCListener)context;
         }
         else{
             throw new RuntimeException(

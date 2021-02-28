@@ -45,8 +45,9 @@ public class FragmentA extends Fragment {
     }
 
     //ontvangt data van buitenaf (bvb in fragment b wordt op knop gedrukt)
-    public void updateCelsius(String input){
-        et_celsius.setText(input);
+    public void updateCelsius(Double input){
+        String newInput = input.toString();
+        et_celsius.setText(newInput);
     }
 
 

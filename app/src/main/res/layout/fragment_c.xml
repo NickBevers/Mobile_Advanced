@@ -13,7 +13,7 @@
         android:id="@+id/et_kelvin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberPassword"/>
+        android:inputType="number"/>
 
     <Button
         android:id="@+id/button_to_kelvin"

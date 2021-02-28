@@ -15,7 +15,7 @@ public class FragmentB extends Fragment {
         void onInputBSend(String input);
     }
 
-    private EditText et_celsius;
+    private EditText et_fahrenheit;
     private FragmentBListener listener;
 
     public FragmentB() {
@@ -29,10 +29,10 @@ public class FragmentB extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_b, container, false);
 
-        et_celsius = v.findViewById(R.id.et_fahrenheit);
+        et_fahrenheit = v.findViewById(R.id.et_fahrenheit);
 
         v.findViewById(R.id.button_to_celsius).setOnClickListener(bv -> {
-            String input = et_celsius.getText().toString();
+            String input = et_fahrenheit.getText().toString();
 
             //Stuur naar fragment A
             listener.onInputBSend(input);
@@ -43,8 +43,9 @@ public class FragmentB extends Fragment {
     }
 
     //ontvangt data van buitenaf (bvb in fragment b wordt op knop gedrukt)
-    public void updateFahrenheit(String input){
-        et_celsius.setText(input);
+    public void updateFahrenheit(Double input){
+        String newInput = input.toString();
+        et_fahrenheit.setText(newInput);
     }
 
 
