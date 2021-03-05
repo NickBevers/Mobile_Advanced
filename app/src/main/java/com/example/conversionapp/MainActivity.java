@@ -24,23 +24,25 @@ public class MainActivity extends AppCompatActivity{
         //Update Fahrenheit and kelvin from Celsius
         fragmentCelsius.setListener(new TempFragment.FragmentListener() {
             @Override
-            public void onInputSend(String input) {
-                fragmentFahrenheit.updateTemp(input);
-                fragmentKelvin.updateTemp(input);
+            public void onInputSend(float input) {
+                fragmentFahrenheit.updateTemp(input * 9/5 + 32f);
+                fragmentKelvin.updateTemp(input + 273.15f);
             }
         });
 
         fragmentFahrenheit.setListener(new TempFragment.FragmentListener() {
             @Override
-            public void onInputSend(String input) {
-
+            public void onInputSend(float input) {
+                fragmentCelsius.updateTemp((input - 32f) * 5/9);
+                fragmentKelvin.updateTemp((input - 32f) * 5/9 + 273.15f);
             }
         });
 
         fragmentKelvin.setListener(new TempFragment.FragmentListener() {
             @Override
-            public void onInputSend(String input) {
-
+            public void onInputSend(float input) {
+                fragmentCelsius.updateTemp(input - 273.15f);
+                fragmentFahrenheit.updateTemp((input - 273.15f) * 9/5 + 32f);
             }
         });
 

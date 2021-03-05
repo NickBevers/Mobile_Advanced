@@ -19,7 +19,7 @@ public class TempFragment extends Fragment {
     private FragmentListener listener;
 
     public interface FragmentListener{
-        void onInputSend(String input);
+        void onInputSend(float input);
 
     }
 
@@ -46,12 +46,12 @@ public class TempFragment extends Fragment {
             if (etTemp.hasFocus()) {
                 if (etTemp.length() >= 0 && !TextUtils.isEmpty(etTemp.getText().toString())) {
                     try {
-                        listener.onInputSend(input);
+                        listener.onInputSend(Float.parseFloat(input));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    listener.onInputSend("0");
+                    listener.onInputSend(0);
                 }
             }
         }
@@ -75,7 +75,7 @@ public class TempFragment extends Fragment {
         this.listener = listener;
     }
 
-    public void updateTemp(String input){
-        etTemp.setText(input);
+    public void updateTemp(float input){
+        etTemp.setText(String.format("%.2f", input));
     }
 }
